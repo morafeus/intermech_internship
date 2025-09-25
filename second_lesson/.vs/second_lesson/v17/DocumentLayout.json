@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\internship\\intermech_internship\\second_lesson\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4092D5E2-34B3-4714-A4D4-853E4D6BD6F3}|second_lesson\\second_lesson.csproj|d:\\internship\\intermech_internship\\second_lesson\\second_lesson\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4092D5E2-34B3-4714-A4D4-853E4D6BD6F3}|second_lesson\\second_lesson.csproj|solutionrelative:second_lesson\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{177848E1-E142-4107-A8E7-BE40217B479B}|second_lesson_4ex\\second_lesson_4ex.csproj|d:\\internship\\intermech_internship\\second_lesson\\second_lesson_4ex\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{177848E1-E142-4107-A8E7-BE40217B479B}|second_lesson_4ex\\second_lesson_4ex.csproj|solutionrelative:second_lesson_4ex\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{177848E1-E142-4107-A8E7-BE40217B479B}|second_lesson_4ex\\second_lesson_4ex.csproj|d:\\internship\\intermech_internship\\second_lesson\\second_lesson_4ex\\ordereddictionaryext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{177848E1-E142-4107-A8E7-BE40217B479B}|second_lesson_4ex\\second_lesson_4ex.csproj|solutionrelative:second_lesson_4ex\\ordereddictionaryext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "OrderedDictionaryExt.cs",
+              "DocumentMoniker": "D:\\internship\\intermech_internship\\second_lesson\\second_lesson_4ex\\OrderedDictionaryExt.cs",
+              "RelativeDocumentMoniker": "second_lesson_4ex\\OrderedDictionaryExt.cs",
+              "ToolTip": "D:\\internship\\intermech_internship\\second_lesson\\second_lesson_4ex\\OrderedDictionaryExt.cs",
+              "RelativeToolTip": "second_lesson_4ex\\OrderedDictionaryExt.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T12:51:49.278Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\internship\\intermech_internship\\second_lesson\\second_lesson\\Program.cs",
+              "RelativeDocumentMoniker": "second_lesson\\Program.cs",
+              "ToolTip": "D:\\internship\\intermech_internship\\second_lesson\\second_lesson\\Program.cs",
+              "RelativeToolTip": "second_lesson\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T12:29:28.429Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\internship\\intermech_internship\\second_lesson\\second_lesson_4ex\\Program.cs",
+              "RelativeDocumentMoniker": "second_lesson_4ex\\Program.cs",
+              "ToolTip": "D:\\internship\\intermech_internship\\second_lesson\\second_lesson_4ex\\Program.cs",
+              "RelativeToolTip": "second_lesson_4ex\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T12:29:11.632Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
