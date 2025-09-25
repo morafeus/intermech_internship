@@ -18,8 +18,15 @@ namespace second_lesson_4ex
             compareOrdered.Add(400, 400);
             compareOrdered.Add("hello",300);
 
+            OrderedDictionaryEqComp orderedDictionaryEq = new OrderedDictionaryEqComp();
+
+            object[] keys = new object[compareOrdered.Keys.Count];
+            compareOrdered.Keys.CopyTo(keys, 0);
+            Console.WriteLine(orderedDictionaryEq.Equals(keys[0], keys[1]));
+
             try
             {
+                Console.WriteLine(compareOrdered.CompareKeys(100, 400));
                 Console.WriteLine(compareOrdered.CompareKeys(100, 400));
             }
             catch (Exception ex)
