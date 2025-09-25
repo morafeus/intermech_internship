@@ -1,0 +1,8 @@
+D:\internship\intermech_internship\first_lesson\first_lesson\bin\Debug\first_lesson.exe.config
+D:\internship\intermech_internship\first_lesson\first_lesson\bin\Debug\first_lesson.exe
+D:\internship\intermech_internship\first_lesson\first_lesson\bin\Debug\first_lesson.pdb
+D:\internship\intermech_internship\first_lesson\first_lesson\obj\Debug\first_lesson.csproj.AssemblyReference.cache
+D:\internship\intermech_internship\first_lesson\first_lesson\obj\Debug\first_lesson.csproj.CoreCompileInputs.cache
+D:\internship\intermech_internship\first_lesson\first_lesson\obj\Debug\first_lesson.exe
+D:\internship\intermech_internship\first_lesson\first_lesson\obj\Debug\first_lesson.pdb
+D:\internship\intermech_internship\first_lesson\first_lesson\obj\Debug\first_lesson.exe.config
