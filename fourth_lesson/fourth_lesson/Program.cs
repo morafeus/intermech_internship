@@ -1,7 +1,8 @@
 ﻿
-
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 
 namespace fourth_lesson
 {
@@ -9,28 +10,26 @@ namespace fourth_lesson
     {
         static void Main(string[] args)
         {
-            var checkList = new CheckList();
-            var info = checkList.ReadFile(@"D:\internship\file_system\file_check.txt");
-            string[] strings = info.Split('\n');
+            var info = File.ReadAllText(@"D:\internship\file_system\file_check.txt");
+            string[] strings = info.Split('\n' );
 
+            List<string> names = new List<string>();
+            List<DateTime> dates = new List<DateTime>();
 
             foreach (string s in strings)
             {
-                var name = s.Split(' ')[0];
-                var buf = s.Split(' ')[1].TrimEnd('\r');
-                DateTime date = DateTime.Parse(buf);
-                Console.WriteLine(name + " " + date);
+
+                var result = s.Substring(0, s.Length - 1).Split(' ');
+                dates.Add(DateTime.Parse(result[1]));
+                names.Add(result[0]);
+
             }
 
-            Console.WriteLine("\n");
-            foreach (string s in strings)
+            //CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-us");
+            foreach(DateTime date in dates)
             {
-                var name = s.Split(' ')[0];
-                var buf = s.Split(' ')[1].TrimEnd('\r');
-                DateTime date = DateTime.ParseExact(buf,"mm.dd.yyyy", CultureInfo.CurrentCulture = new CultureInfo("en-us"));
-                Console.WriteLine(name + " " + date);
+                Console.WriteLine(date);
             }
-
         }
     }
 }
