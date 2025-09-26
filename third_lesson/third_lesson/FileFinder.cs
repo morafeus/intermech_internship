@@ -12,10 +12,19 @@ namespace third_lesson
 {
     public class FileFinder
     {
-        public void FindByName(string name)
+        public string FindByName(string name)
         {
-            var path = GetFiles(@"d:\", name).FirstOrDefault();
-            var zipPath = path.TrimEnd(".txt".ToCharArray()) + ".gz";
+            var path = GetFiles(name).FirstOrDefault();
+            if (path == null)
+            {
+                throw new Exception("file not found");
+            }
+            return path;
+
+        }
+
+        public void FileRead(string path)
+        {
             using (FileStream fs = File.OpenRead(path))
             {
                 var b = new byte[1024];
@@ -26,8 +35,22 @@ namespace third_lesson
                     Console.WriteLine(temp.GetString(b, 0, readLen));
                 }
             }
-            ZipFiles(path, zipPath);
+        }
 
+        public List<string> GetFiles(string pattern)
+        {
+            var files = new List<string>();
+            var drives = DriveInfo.GetDrives();
+
+            foreach (var drive in drives)
+            {
+                if (drive.IsReady)
+                {
+                    files.AddRange(GetFiles(drive.RootDirectory.FullName, pattern));
+                }
+            }
+
+            return files;
         }
 
         List<string> GetFiles(string path, string pattern)
@@ -45,7 +68,7 @@ namespace third_lesson
             return files;
         }
 
-        void ZipFiles(string source, string destination)
+        public void ZipFiles(string source, string destination)
         {
             using (FileStream sourceStream = new FileStream(source, FileMode.Open, FileAccess.Read))
             using (FileStream targetStream = File.Create(destination))
