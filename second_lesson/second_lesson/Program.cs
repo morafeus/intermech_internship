@@ -17,23 +17,23 @@ namespace second_lesson
             var x = 123456789;
             var y = 200.51;
 
-            Dictionary<int, double> dict = new Dictionary<int, double>();
+            var dict = new Dictionary<int, double>();
             dict.Add(x, y);
 
-            Hashtable hashtable = new Hashtable();
+            var hashtable = new Hashtable();
             hashtable.Add(x, y);
 
-            SortedList<int, double> keyValuePairs = new SortedList<int, double>();
+            var keyValuePairs = new SortedList<int, double>();
             keyValuePairs.Add(x, y);
 
-            ListDictionary listDictionary = new ListDictionary();
+            var listDictionary = new ListDictionary();
             listDictionary.Add(x, y);
 
-            HybridDictionary hybridDictionary = new HybridDictionary();
+            var hybridDictionary = new HybridDictionary();
             hybridDictionary.Add(x, y);
 
             //?????
-            List<Company> list = new List<Company>();
+            var list = new List<Company>();
             list.Add(new Company() { id = x, value = y });
             
         }

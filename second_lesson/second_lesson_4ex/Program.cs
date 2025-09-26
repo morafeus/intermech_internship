@@ -12,13 +12,13 @@ namespace second_lesson_4ex
             var x = 123456789;
             var y = 200.51;
 
-            OrderedDictionary compareOrdered = new OrderedDictionary();
+            var compareOrdered = new OrderedDictionary();
             compareOrdered.Add(100, 100);
             compareOrdered.Add(200, 200);
             compareOrdered.Add(400, 400);
             compareOrdered.Add("hello",300);
 
-            OrderedDictionaryEqComp orderedDictionaryEq = new OrderedDictionaryEqComp();
+            var orderedDictionaryEq = new OrderedDictionaryEqComp();
 
             object[] keys = new object[compareOrdered.Keys.Count];
             compareOrdered.Keys.CopyTo(keys, 0);

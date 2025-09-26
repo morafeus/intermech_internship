@@ -12,10 +12,7 @@ namespace second_lesson_4ex
 
             var result = val1.CompareTo(val2);
 
-            if (result == 0)
-                return true;
-            else
-                return false;
+            return result == 0;
         }
 
         public int GetHashCode(object obj)
