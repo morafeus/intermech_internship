@@ -3,15 +3,19 @@
   "WorkspaceRootPath": "D:\\internship\\intermech_internship\\first_lesson\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{841391EE-A66C-47BE-B635-165E17BBB969}|first_lesson\\first_lesson.csproj|D:\\internship\\intermech_internship\\first_lesson\\first_lesson\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{841391EE-A66C-47BE-B635-165E17BBB969}|first_lesson\\first_lesson.csproj|solutionrelative:first_lesson\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{841391EE-A66C-47BE-B635-165E17BBB969}|first_lesson\\first_lesson.csproj|d:\\internship\\intermech_internship\\first_lesson\\first_lesson\\personcollection\\personcollection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{841391EE-A66C-47BE-B635-165E17BBB969}|first_lesson\\first_lesson.csproj|solutionrelative:first_lesson\\personcollection\\personcollection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{841391EE-A66C-47BE-B635-165E17BBB969}|first_lesson\\first_lesson.csproj|d:\\internship\\intermech_internship\\first_lesson\\first_lesson\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{841391EE-A66C-47BE-B635-165E17BBB969}|first_lesson\\first_lesson.csproj|solutionrelative:first_lesson\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{841391EE-A66C-47BE-B635-165E17BBB969}|first_lesson\\first_lesson.csproj|d:\\internship\\intermech_internship\\first_lesson\\first_lesson\\models\\retrie.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{841391EE-A66C-47BE-B635-165E17BBB969}|first_lesson\\first_lesson.csproj|solutionrelative:first_lesson\\models\\retrie.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{841391EE-A66C-47BE-B635-165E17BBB969}|first_lesson\\first_lesson.csproj|d:\\internship\\intermech_internship\\first_lesson\\first_lesson\\models\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{841391EE-A66C-47BE-B635-165E17BBB969}|first_lesson\\first_lesson.csproj|D:\\internship\\intermech_internship\\first_lesson\\first_lesson\\models\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{841391EE-A66C-47BE-B635-165E17BBB969}|first_lesson\\first_lesson.csproj|solutionrelative:first_lesson\\models\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -22,43 +26,56 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
+              "Title": "Retrie.cs",
+              "DocumentMoniker": "D:\\internship\\intermech_internship\\first_lesson\\first_lesson\\Models\\Retrie.cs",
+              "RelativeDocumentMoniker": "first_lesson\\Models\\Retrie.cs",
+              "ToolTip": "D:\\internship\\intermech_internship\\first_lesson\\first_lesson\\Models\\Retrie.cs",
+              "RelativeToolTip": "first_lesson\\Models\\Retrie.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-26T07:19:17.381Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "PersonCollection.cs",
               "DocumentMoniker": "D:\\internship\\intermech_internship\\first_lesson\\first_lesson\\PersonCollection\\PersonCollection.cs",
               "RelativeDocumentMoniker": "first_lesson\\PersonCollection\\PersonCollection.cs",
               "ToolTip": "D:\\internship\\intermech_internship\\first_lesson\\first_lesson\\PersonCollection\\PersonCollection.cs",
               "RelativeToolTip": "first_lesson\\PersonCollection\\PersonCollection.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAgwBMAAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAB4AAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-25T07:20:03.534Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Person.cs",
               "DocumentMoniker": "D:\\internship\\intermech_internship\\first_lesson\\first_lesson\\Models\\Person.cs",
               "RelativeDocumentMoniker": "first_lesson\\Models\\Person.cs",
               "ToolTip": "D:\\internship\\intermech_internship\\first_lesson\\first_lesson\\Models\\Person.cs",
               "RelativeToolTip": "first_lesson\\Models\\Person.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAswBcAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-25T07:03:23.768Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\internship\\intermech_internship\\first_lesson\\first_lesson\\Program.cs",
               "RelativeDocumentMoniker": "first_lesson\\Program.cs",
               "ToolTip": "D:\\internship\\intermech_internship\\first_lesson\\first_lesson\\Program.cs",
               "RelativeToolTip": "first_lesson\\Program.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAADYAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB8AAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-25T06:44:25.551Z",
               "EditorCaption": ""

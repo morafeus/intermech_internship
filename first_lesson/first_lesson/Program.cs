@@ -11,9 +11,9 @@ namespace first_lesson
             Student student1 = new Student("Андрей");
             Student student2 = new Student("Филип");
 
-            Retrie retrie = new Retrie("Анатолий");
-            Retrie retrie1 = new Retrie("Степан");
-            Retrie retrie2 = new Retrie("Денис");
+            Retriee retriee = new Retriee("Анатолий");
+            Retriee retriee1 = new Retriee("Степан");
+            Retriee retriee2 = new Retriee("Денис");
 
             Worker worker = new Worker("Аркадий");
             Worker worker1 = new Worker("Федор");
@@ -22,14 +22,14 @@ namespace first_lesson
             PersonCollection.PersonCollection collection = new PersonCollection.PersonCollection();
             collection.Add(student);
             collection.Add(student1);
-            collection.Add(retrie);
+            collection.Add(retriee);
             collection.Add(student);
             collection.Add(worker);
             collection.Add(worker1);
             collection.Add(worker2);
-            collection.Add(retrie1);
+            collection.Add(retriee1);
             collection.Add(student2);
-            collection.Add(retrie2);
+            collection.Add(retriee2);
 
             foreach(var person in collection)
             {

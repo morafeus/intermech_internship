@@ -21,10 +21,11 @@ namespace first_lesson.Models
         public override bool Equals(object obj)
         {
             Person person = obj as Person;
-            if( this.id == person.Id)
-                return true;
-            else
-                return false;
+            if (obj is Person other)
+            {
+                return this.id == other.id;
+            }
+            return false;
         }
 
         public override string ToString()

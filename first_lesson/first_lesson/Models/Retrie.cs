@@ -2,9 +2,9 @@
 
 namespace first_lesson.Models
 {
-    public class Retrie : Person
+    public class Retriee : Person
     {
-        public Retrie(string name) : base(name)
+        public Retriee(string name) : base(name)
         {
         }
 
