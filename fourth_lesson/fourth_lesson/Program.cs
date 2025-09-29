@@ -25,8 +25,13 @@ namespace fourth_lesson
 
             }
 
-            //CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-us");
-            foreach(DateTime date in dates)
+            foreach (DateTime date in dates)
+            {
+                Console.WriteLine(date);
+            }
+
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-us");
+            foreach (DateTime date in dates)
             {
                 Console.WriteLine(date);
             }
