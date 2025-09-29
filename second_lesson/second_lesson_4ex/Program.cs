@@ -1,6 +1,7 @@
 ﻿
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 
 namespace second_lesson_4ex
@@ -9,6 +10,8 @@ namespace second_lesson_4ex
     {
         public static void Main(string[] args)
         {
+
+
             var x = 123456789;
             var y = 200.51;
 
@@ -16,7 +19,7 @@ namespace second_lesson_4ex
             compareOrdered.Add(100, 100);
             compareOrdered.Add(200, 200);
             compareOrdered.Add(400, 400);
-            compareOrdered.Add("hello",300);
+            compareOrdered.Add("hello", 300);
 
             var orderedDictionaryEq = new OrderedDictionaryEqComp();
 
@@ -30,8 +33,8 @@ namespace second_lesson_4ex
                 Console.WriteLine(compareOrdered.CompareKeys(100, 400));
             }
             catch (Exception ex)
-            { 
-                Console.WriteLine(ex.Message); 
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }
