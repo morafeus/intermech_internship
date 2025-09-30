@@ -16,8 +16,12 @@ namespace Sixth_lesson
             var type = assembly.GetType("TemperatureConverter.Converter");
             var instance = Activator.CreateInstance(type);
 
-            var tempResult = type.GetMethod("CelsiusToFahrenheit").Invoke(instance, new object[] { 25.5});
-            Console.WriteLine(tempResult);
+            try
+            {
+                var tempResult = type.GetMethod("CelsiusToFahrenheit").Invoke(instance, new object[] { -3225.5 });
+                Console.WriteLine(tempResult);
+            }
+            catch (TargetInvocationException ex) { Console.WriteLine(ex.InnerException.Message); }
 
         }
     }
