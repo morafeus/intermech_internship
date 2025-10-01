@@ -20,12 +20,20 @@ namespace seventh_lesson
                 Console.WriteLine(attribute.ToString()); 
             }
 
-            var files = assembly.GetFiles();
-            Console.WriteLine("\nФайлы:");
-            foreach (var file in files)
+            try
             {
-                Console.WriteLine(file.Name);
+                var files = assembly.GetFiles();
+                Console.WriteLine("\nФайлы:");
+                foreach (var file in files)
+                {
+                    Console.WriteLine(file.Name);
+                }
             }
+            catch (ReflectionTypeLoadException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+           
 
             var types = assembly.GetTypes();
             Console.WriteLine("\nТипы:");
