@@ -1,7 +1,5 @@
 ﻿
 using System;
-using System.IO;
-using System.Runtime.InteropServices.ComTypes;
 using System.Xml;
 
 namespace fifth_lesson
@@ -10,10 +8,11 @@ namespace fifth_lesson
     {
         public static void Main(string[] args)
         {
+            const string relativePath = @"D:\internship\file_system\TelephoneBook.xml";
             try
             {
-                XmlDocument doc = new XmlDocument();
-                doc.Load(@"D:\internship\file_system\TelephoneBook.xml");
+                var doc = new XmlDocument();
+                doc.Load(relativePath);
 
                 XmlNode node = doc.DocumentElement.SelectSingleNode("/MyContacts");
 
