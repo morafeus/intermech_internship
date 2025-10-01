@@ -1,27 +1,44 @@
 ﻿
 using System;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace eighth_lesson
 {
     [Serializable]
     public class SerializeblePerson
     {
-        private int _id;
-        private string _name;
-        private int _age;
-        private DateTime _birthday;
+        private SomeInfo<int> _id;
+        private SomeInfo<string> _name;
+        private SomeInfo<DateTime> _birthday;
 
-        public int Id { get { return _id; } set { _id = value; } }
-        public string Name { get { return _name; } set { _name = value; } }
-        public int Age { get { return _age; } set { _age = value; } }
-        public DateTime Birthday { get { return _birthday; } set { _birthday = value; } }
+        [XmlElement("id")]
+        public SomeInfo<int> Id { get { return _id; } set { _id = value; } }
 
-        public SerializeblePerson(int id, string name, int age, DateTime birthday)
+        [XmlElement("name")]
+        public SomeInfo<string> Name { get { return _name; } set { _name = value; } }
+
+        [XmlElement("birthday")]
+        public SomeInfo<DateTime> Birthday { get { return _birthday; } set { _birthday = value; } }
+
+        public SerializeblePerson() { }
+
+        public SerializeblePerson(int id, string name, DateTime birthday)
         {
-            Id = id;
-            Name = name;
-            Age = age;
-            Birthday = birthday;
+            Id = new SomeInfo<int> { Value = id };
+            Name= new SomeInfo<string> { Value = name };
+            Birthday = new SomeInfo<DateTime> { Value = birthday };
         }
+
+        public override string ToString()
+        {
+            return $"Id: {_id.Value} Name: {_name.Value} Birthday: {_birthday.Value}";
+        }
+    }
+
+    public class SomeInfo<T>
+    {
+        [XmlAttribute]
+        public T Value { get; set; }
     }
 }
