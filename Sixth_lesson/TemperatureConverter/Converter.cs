@@ -1,50 +1,70 @@
 ﻿
 using System;
+using System.Collections.Generic;
 
 namespace TemperatureConverter
 {
-    public class Converter
+    public static class Converter
     {
-        public double CelsiusToFahrenheit(double celsius)
+        private const double FAHRENHEIT_SCALE = 9 / 5;
+        private const double FAHRENHEIT_SCALE_REV = 5 / 9;
+        private const double FAHRENHEIT_OFFSET = 32;
+        private const double KELVIN_OFFSET = 273.15;
+
+        private static Dictionary<string, double> absouluteZiro = new Dictionary<string, double>()
         {
-            if (celsius < -273.15)
+            { "ziroCelsius", -273.15},
+            { "ziroFahrenheit", -459.67 },
+            { "ziroKelvin", 0 }
+        };
+
+
+        public static double CelsiusToFahrenheit(double celsius)
+        {
+            absouluteZiro.TryGetValue("ziroCelsius", out double ziro);
+            if (celsius < ziro)
                 throw new Exception("неверный формат температуры");
-            return celsius * 9 / 5 + 32;
+            return celsius * FAHRENHEIT_SCALE + FAHRENHEIT_OFFSET;
         }
 
-        public double CelsiusToKelvin(double celsius)
+        public static double CelsiusToKelvin(double celsius)
         {
-            if (celsius < -273.15)
+            absouluteZiro.TryGetValue("ziroCelsius", out double ziro);
+            if (celsius < ziro)
                 throw new Exception("неверный формат температуры");
-            return celsius + 273.15;
+            return celsius + KELVIN_OFFSET;
         }
 
-        public double FahrenheitToCelsius(double fahrenheit)
+        public static double FahrenheitToCelsius(double fahrenheit)
         {
-            if (fahrenheit < -459.67)
+            absouluteZiro.TryGetValue("ziroFahrenheit", out double ziro);
+            if (fahrenheit < ziro)
                 throw new Exception("неверный формат температуры");
-            return (fahrenheit - 32) * 5 / 9;
+            return (fahrenheit - FAHRENHEIT_OFFSET) * FAHRENHEIT_SCALE_REV;
         }
 
-        public double FahrenheitToKelvin(double fahrenheit)
+        public static double FahrenheitToKelvin(double fahrenheit)
         {
-            if (fahrenheit < -459.67)
+            absouluteZiro.TryGetValue("ziroFahrenheit", out double ziro);
+            if (fahrenheit < ziro)
                 throw new Exception("неверный формат температуры");
-            return ((fahrenheit - 32) * 5 / 9) + 273.15;
+            return ((fahrenheit - FAHRENHEIT_OFFSET) * FAHRENHEIT_SCALE_REV) + KELVIN_OFFSET;
         }
 
-        public double KelvinToCelsius(double kelvin)
+        public static double KelvinToCelsius(double kelvin)
         {
-            if (kelvin < 0)
+            absouluteZiro.TryGetValue("ziroKelvin", out double ziro);
+            if (kelvin < ziro)
                 throw new Exception("неверный формат температуры");
-            return kelvin - 273.15;
+            return kelvin - KELVIN_OFFSET;
         }
 
-        public double KelvinToFahrenheit(double kelvin)
+        public static double KelvinToFahrenheit(double kelvin)
         {
-            if (kelvin < 0)
+            absouluteZiro.TryGetValue("ziroKelvin", out double ziro);
+            if (kelvin < ziro)
                 throw new Exception("неверный формат температуры");
-            return (kelvin - 273.15)* 9 / 5 + 32;
+            return (kelvin - KELVIN_OFFSET) * FAHRENHEIT_SCALE + FAHRENHEIT_OFFSET;
         }
     }
 }
