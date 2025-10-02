@@ -1,5 +1,5 @@
 ﻿
-using tenth_lesson.TemplateMethod;
+using tenth_lesson.Template;
 
 namespace tenth_lesson
 {
