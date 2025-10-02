@@ -10,37 +10,42 @@ namespace _9_lesson
         private double _memoryLimit;
         private double _memoryWarning;
 
-        public long GetMemoryValue()
-        {
-            Process process = Process.GetCurrentProcess();
-            long memoryUsedInBytes = process.WorkingSet64;
-            return memoryUsedInBytes * MBSCALE;
-        }
-
-        public void SetLimits(int memoryLimit)
+        public Monitoring(double memoryLimit)
         {
             _memoryLimit = memoryLimit;
             _memoryWarning = memoryLimit * 0.9;
         }
 
-        public void CheckMemory()
+        public long GetMemoryValue()
+        {
+            //long memoryUsedInBytes = GC.GetTotalMemory(false);
+
+            Process process = Process.GetCurrentProcess();
+            process.Refresh();
+            long memoryUsedInBytes = process.WorkingSet64;
+            return memoryUsedInBytes / MBSCALE;
+        }
+
+        public bool CheckMemory()
         {
             var memory = GetMemoryValue();
 
-            Console.WriteLine($"расходуется {memory} Mb памяти из допустимых {_memoryWarning} Mb");
+            Console.WriteLine($"расходуется {memory} Mb памяти из допустимых {_memoryLimit} Mb");
 
             if (memory < _memoryWarning)
             {
                 Console.WriteLine($"использование памяти в норме");
-                return;
+                return false;
             }
-            else if( memory > _memoryLimit  && memory < _memoryLimit)
+            else if( memory > _memoryWarning  && memory < _memoryLimit)
             {
                 Console.WriteLine($"приложение потребляет слишком много памяти");
+                return false;
             }
             else
             {
                 Console.WriteLine($"приложение превышает допустимый режим потребления памяти");  
+                return true;
             }
         }
 
