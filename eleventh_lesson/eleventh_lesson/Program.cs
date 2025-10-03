@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.IO;
 using System.Threading;
 
@@ -37,7 +37,7 @@ namespace eleventh_lesson
         {
             lock (locker)
             {
-                using (StreamWriter writer = new StreamWriter(THIRDPATH, true))
+                using (var writer = new StreamWriter(THIRDPATH, true))
                 {
                     Thread.Sleep(1000);
                     writer.WriteLine(data);
