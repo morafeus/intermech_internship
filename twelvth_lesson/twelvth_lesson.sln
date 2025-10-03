@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36511.14 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "twelvth_lesson", "twelvth_lesson\twelvth_lesson.csproj", "{706F9D9D-BFE5-466F-A303-DE1F2FB68746}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "twelvth_lesson_ex3", "twelvth_lesson_ex3\twelvth_lesson_ex3.csproj", "{52135DB8-7AF5-40CC-9A28-57660D8D047E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{706F9D9D-BFE5-466F-A303-DE1F2FB68746}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{706F9D9D-BFE5-466F-A303-DE1F2FB68746}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{706F9D9D-BFE5-466F-A303-DE1F2FB68746}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52135DB8-7AF5-40CC-9A28-57660D8D047E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52135DB8-7AF5-40CC-9A28-57660D8D047E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52135DB8-7AF5-40CC-9A28-57660D8D047E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52135DB8-7AF5-40CC-9A28-57660D8D047E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
