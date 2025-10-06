@@ -6,10 +6,24 @@ namespace fifteenth_lesson
 {
     public class DatabaseManager
     {
-        public static async Task<string> GetData()
+
+        public static async Task<string> GetDataAsync()
         {
-            Thread.Sleep(4000);
-            return "подключен к базе данных"; 
+            return await Task.Run<string>(() => 
+            {
+                Thread.Sleep(4000);
+                return "подключение к базе данных успешно.";
+            }); 
         }
+
+        public static async Task<string> SetDataAsync()
+        {
+            return await Task.Run<string>(() =>
+            {
+                Thread.Sleep(4000);
+                return "подключение к базе данных закрыто.";
+            });
+        }
+
     }
 }

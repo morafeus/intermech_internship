@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace fifteenth_lesson
@@ -8,16 +9,28 @@ namespace fifteenth_lesson
         public Form1()
         {
             InitializeComponent();
+
+            timer1.Interval = 1000;
+            timer1.Enabled = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
-            textBoxStatus.Text += DatabaseManager.GetData().Result;
+            var result = await DatabaseManager.GetDataAsync();
+            textBoxStatus.Text += result + Environment.NewLine;
+            timer1.Enabled = true;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
+            var result = await DatabaseManager.SetDataAsync();
+            textBoxStatus.Text += result + Environment.NewLine;
+            timer1.Enabled = false;
+        }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            textBoxStatus.Text += "Данные получены" + Environment.NewLine;
         }
     }
 }
