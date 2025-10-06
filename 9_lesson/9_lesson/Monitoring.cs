@@ -12,6 +12,11 @@ namespace _9_lesson
 
         public Monitoring(double memoryLimit)
         {
+            if (memoryLimit <= 0)
+            {
+                throw new Exception("память не может быть меньше 0");
+            }
+
             _memoryLimit = memoryLimit;
             _memoryWarning = memoryLimit * 0.9;
         }
