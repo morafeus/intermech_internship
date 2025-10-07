@@ -14,23 +14,19 @@ namespace eleventh_lesson
 
         static void Main(string[] args)
         {
-            var threadFirst = new Thread(()=> 
+            ThreadPool.QueueUserWorkItem((object state) =>
             {
                 var info = File.ReadAllText(FIRSTPATH);
                 SaveThird(info);
             });
 
-            var threadSecond = new Thread(()=> 
+            ThreadPool.QueueUserWorkItem((object state) =>
             {
                 var info = File.ReadAllText(SECONDPATH);
                 SaveThird(info);
             });
 
-            threadFirst.Start();
-            threadSecond.Start();
-
-            threadFirst.Join();
-            threadSecond.Join();
+            Thread.Sleep(1000);
         }
 
         static void SaveThird(string data)
@@ -39,7 +35,6 @@ namespace eleventh_lesson
             {
                 using (var writer = new StreamWriter(THIRDPATH, true))
                 {
-                    Thread.Sleep(1000);
                     writer.WriteLine(data);
                 }
             }
