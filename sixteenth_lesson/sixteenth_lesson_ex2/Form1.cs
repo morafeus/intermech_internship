@@ -25,19 +25,19 @@ namespace sixteenth_lesson_ex2
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-
+            var result = ServiceInstaller.StartService("16lesson");
+            DataTextBox.Text += result;
         }
 
         private void StopButton_Click(object sender, EventArgs e)
         {
-
+            var result = ServiceInstaller.StopService("16lesson");
+            DataTextBox.Text += result;
         }
 
         private async void timer1_Tick(object sender, EventArgs e)
         {
-            DataTextBox.Text = string.Empty;
             DataTextBox.Text = await LogFileManager.GetDataAsync();
-
         }
     }
 }

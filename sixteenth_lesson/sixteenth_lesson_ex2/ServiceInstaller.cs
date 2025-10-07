@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.ServiceProcess;
 
 namespace sixteenth_lesson_ex2
 {
@@ -29,7 +30,7 @@ namespace sixteenth_lesson_ex2
         public static void InstallationService(InstallationFlag flag)
         {
             var installUtil = GetInstallUtilPath();
-            ProcessStartInfo startInfo = new ProcessStartInfo();
+            var startInfo = new ProcessStartInfo();
 
             if (!File.Exists(installUtil))
             {
@@ -40,7 +41,7 @@ namespace sixteenth_lesson_ex2
             switch (flag)
             {
                 case InstallationFlag.Install:
-                    {
+                    { 
                         startInfo = new ProcessStartInfo(installUtil)
                         {
                             Arguments = $"\"{GetFullPath()}\"",
@@ -71,6 +72,54 @@ namespace sixteenth_lesson_ex2
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static string StartService(string serviceName)
+        {
+            ServiceController service = new ServiceController(serviceName);
+           
+            try
+            {
+                if (service.Status != ServiceControllerStatus.Running)
+                {
+                    service.Start();
+                    var timeout = new TimeSpan(0, 0, 5);
+                    service.WaitForStatus(ServiceControllerStatus.Running, timeout);
+                    return "служба запущена.";
+                }
+                else
+                {
+                    return "данная служба уже работает";
+                }
+            }
+            catch
+            {
+                return "ошибка при запуске службы";
+            }
+        }
+
+        public static string StopService(string serviceName)
+        {
+            ServiceController service = new ServiceController(serviceName);
+
+            try
+            {
+                if (service.Status != ServiceControllerStatus.Stopped)
+                {
+                    service.Stop();
+                    var timeout = new TimeSpan(0, 0, 5);
+                    service.WaitForStatus(ServiceControllerStatus.Running, timeout);
+                    return "служба остановлена.";
+                }
+                else
+                {
+                    return "данная служба не запущена";
+                }
+            }
+            catch
+            {
+                return "ошибка при остановке службы";
             }
         }
     }
