@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace seventeenth_lesson
 {
@@ -36,6 +37,14 @@ namespace seventeenth_lesson
             if (items == null)
                 throw new Exception("на складе ничего нет");
             return items;
+        }
+
+        public T FindItem(Func<T, bool> predicate)
+        {
+            if (items == null)
+                throw new Exception("коллекция пуста");
+            return items.Where(predicate).FirstOrDefault();
+
         }
     }
 }
