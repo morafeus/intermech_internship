@@ -4,10 +4,10 @@ using System.Threading;
 
 namespace sixteenth_lesson
 {
-    public partial class Service1 : ServiceBase
+    public partial class FileSystemService : ServiceBase
     {
         private FileSystemLogger fileSystemLogger;
-        public Service1()
+        public FileSystemService()
         {
             InitializeComponent();
         }

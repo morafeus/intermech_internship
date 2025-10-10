@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace sixteenth_lesson_ex2
 {
-    public partial class Form1 : Form
+    public partial class ServiceInstallerForm : Form
     {
-        public Form1()
+        public ServiceInstallerForm()
         {
             InitializeComponent();
             timer1.Interval = 1000;

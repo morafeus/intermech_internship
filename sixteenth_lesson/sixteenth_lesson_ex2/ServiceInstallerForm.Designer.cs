@@ -1,6 +1,6 @@
 ﻿namespace sixteenth_lesson_ex2
 {
-    partial class Form1
+    partial class ServiceInstallerForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.

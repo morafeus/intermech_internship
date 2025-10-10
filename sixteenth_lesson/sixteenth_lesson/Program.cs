@@ -17,7 +17,7 @@ namespace sixteenth_lesson
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new Service1()
+                new FileSystemService()
             };
             ServiceBase.Run(ServicesToRun);
         }

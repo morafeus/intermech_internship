@@ -5,12 +5,12 @@ using System.ServiceProcess;
 namespace sixteenth_lesson
 {
     [RunInstaller(true)]
-    public partial class Installer1 : System.Configuration.Install.Installer
+    public partial class LoggerInstaller : System.Configuration.Install.Installer
     {
         ServiceInstaller serviceInstaller;
         ServiceProcessInstaller processInstaller;
 
-        public Installer1()
+        public LoggerInstaller()
         {
             InitializeComponent();
             serviceInstaller = new ServiceInstaller();
