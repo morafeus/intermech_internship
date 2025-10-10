@@ -19,7 +19,7 @@ namespace seventeenth_lesson
                 bookStorage.AddItem(book2);
                 bookStorage.AddItem(book3);
 
-                Console.WriteLine(bookStorage.FindItem(book => book.Author == "Толстой").Title);
+                Console.WriteLine(StorageFinder<Book>.FindItem(bookStorage.GetAll(),book => book.Author == "Толстой").Title);
 
                 bookStorage.RemoveItem(book1);
 

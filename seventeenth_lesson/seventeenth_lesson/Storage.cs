@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace seventeenth_lesson
 {
     public class Storage<T>
     {
-        private List<T> items;
+        private List<T> items = new List<T>();
 
         public void AddItem(T item)
         {
-            if (items == null)
-            {
-                items = new List<T>();
-            }
             if (item != null)
             {
                 items.Add(item);
@@ -22,8 +18,6 @@ namespace seventeenth_lesson
 
         public void RemoveItem(T item)
         {
-            if (items.Count == 0)
-                throw new Exception("пустая коллекция");
             if (item != null)
             {
                 if (!items.Contains(item))
@@ -32,19 +26,10 @@ namespace seventeenth_lesson
             }
         }
 
-        public List<T> GetAll()
+        public ReadOnlyCollection<T> GetAll()
         {
-            if (items == null)
-                throw new Exception("на складе ничего нет");
-            return items;
+            return items.AsReadOnly();
         }
 
-        public T FindItem(Func<T, bool> predicate)
-        {
-            if (items == null)
-                throw new Exception("коллекция пуста");
-            return items.Where(predicate).FirstOrDefault();
-
-        }
     }
 }
