@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace fifteenth_lesson
 {
-    public partial class Form1 : Form
+    public partial class DatabaseForm : Form
     {
-        public Form1()
+        public DatabaseForm()
         {
             InitializeComponent();
 

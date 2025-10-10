@@ -1,6 +1,6 @@
 ﻿namespace fifteenth_lesson
 {
-    partial class Form1
+    partial class DatabaseForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
