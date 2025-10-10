@@ -11,6 +11,8 @@ namespace thirteenth_lesson
             var handler = new MyDelegate(DoSomething);
 
             var result = handler.BeginInvoke("Alexey", AsyncDoSomething, handler);
+
+            Console.ReadLine();
         }
 
         static string DoSomething(string name)
