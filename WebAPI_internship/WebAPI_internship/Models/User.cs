@@ -11,10 +11,11 @@
 
         public User(string name, string description, string passwordHash)
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
             Name = name;
             Description = description;
             PasswordHash = passwordHash;
+            Projects = new List<Project>();
         }
     }
 }

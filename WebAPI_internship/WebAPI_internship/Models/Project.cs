@@ -2,19 +2,19 @@
 {
     public class Project
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public List<NodeGraph> Nodes { get; set; }  
 
-        public Project(int id, string name, string description, int userId)
+        public Project( string name, string description, Guid userId)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             Name = name;
             Description = description;
             UserId = userId;
+            Nodes = new List<NodeGraph>();
         }
     }
 }
