@@ -4,17 +4,25 @@ using WebAPI_internship.Models;
 namespace WebAPI_internship.Controllers
 {
     [ApiController]
-    [Route("auth/[controller]")]
     public class AuthController : Controller
     {
+
         [HttpPost]
-        public async Task<IActionResult> SignUp(int id, string name, string password, string description = "")
+        [Route("signup")]
+        public async Task<IActionResult> SignUp( string name, string password, string description = "")
         {
             try
             {
                 var passwordHash = HashService.HashPassword(password);
 
-                var user = new User(id, name, description, passwordHash);
+                var user = new User(name, description, passwordHash);
+                if(Store.Users.Where(u => u.Name  == name).Any()) 
+                        {
+                    throw new Exception("пользоватль с таким именем уже есть");
+                }
+
+                Store.Users.Add(user);
+
                 return Ok("user has been created");
             }
             catch (Exception ex)
@@ -24,9 +32,34 @@ namespace WebAPI_internship.Controllers
         }
 
         [HttpPost]
-        public async Task<string> SignIn(string name, string password, [FromServices] IConfiguration configuration)
+        [Route("signin")]
+        public async Task<IActionResult> SignIn(string name, string password, [FromServices] IConfiguration configuration)
         {
-            
+            try
+            {
+                if(Store.Users.Where(u => u.Name == name).Any())
+                {
+                    var user = Store.Users.Where(u => u.Name == name).FirstOrDefault();
+
+                    if(HashService.VerifyPassword(password, user.PasswordHash))
+                    {
+                        var tokenService = new TokenService(configuration);
+                        return Ok(tokenService.GenerateAccessToken(user.Id, user.Name));
+                    }
+                    else
+                    {
+                        throw new Exception("неверный пароль");
+                    }
+                }
+                else
+                {
+                    throw new Exception("пользователя с таким логином не существует");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }

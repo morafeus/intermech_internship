@@ -2,6 +2,7 @@
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using WebAPI_internship.Models;
 
 namespace WebAPI_internship
 {
@@ -20,7 +21,7 @@ namespace WebAPI_internship
             _accessTokenExpireMinutes = int.Parse(configuration["Jwt:AccessTokenExpireMinutes"]);
         }
 
-        public string GenerateAccessToken(int id, string name)
+        public string GenerateAccessToken(Guid id, string name)
         {
             var claims = new[]
             {
@@ -39,6 +40,19 @@ namespace WebAPI_internship
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+
+        public static User GetUserFromToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var authHeader = token.Replace("Bearer ", "");
+            var jsonToken = handler.ReadToken(authHeader);
+            var tokenS = handler.ReadToken(authHeader) as JwtSecurityToken;
+            var id = tokenS.Claims.First(claim => claim.Type == "Id").Value;
+
+            var user = Store.Users.Where(u => u.Id == new Guid(id)).FirstOrDefault();
+            return user;
         }
     }
 }
