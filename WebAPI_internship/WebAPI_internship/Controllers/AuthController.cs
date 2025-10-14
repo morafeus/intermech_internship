@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAPI_internship.Models;
+using WebAPI_internship.Services;
 
 namespace WebAPI_internship.Controllers
 {

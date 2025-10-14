@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using WebAPI_internship.Models;
+using WebAPI_internship.Services;
 
 namespace WebAPI_internship.Controllers
 {

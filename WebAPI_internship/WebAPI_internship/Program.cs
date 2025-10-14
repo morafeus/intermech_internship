@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Text;
+using WebAPI_internship.Services;
+using WebAPI_internship.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,9 +40,9 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
+builder.Services.AddScoped<INodeExecutorService, NodeExecutorService>();
+
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
-
-
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -61,6 +64,14 @@ builder.Services.AddAuthentication(x =>
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
 });
+
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateLogger();
+
+builder.Services.AddSerilog();
+
 
 var app = builder.Build();
 
