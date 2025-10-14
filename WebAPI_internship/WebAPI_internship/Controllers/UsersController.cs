@@ -23,6 +23,12 @@ namespace WebAPI_internship.Controllers
         {
             var authHeader = Request.Headers["Authorization"];
             var user = TokenService.GetUserFromToken(authHeader);
+            user.Projects = Store.Projects.Where(p => p.UserId == user.Id).ToList();
+
+            foreach(var project in user.Projects)
+            {
+                project.Nodes = Store.Nodes.Where(n => n.ProjectId == project.Id).ToList();
+            }
             
             return Ok(user);
         }

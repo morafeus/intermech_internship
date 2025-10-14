@@ -15,7 +15,8 @@ namespace WebAPI_internship.Controllers
             var authHeader = Request.Headers["Authorization"];
             var user = TokenService.GetUserFromToken(authHeader);
 
-            return Ok(user.Projects.ToList());
+            var projects = Store.Projects.Where(p => p.UserId == user.Id).ToList();
+            return Ok(projects);
         }
 
         [HttpPost]
@@ -26,19 +27,19 @@ namespace WebAPI_internship.Controllers
             var user = TokenService.GetUserFromToken(authHeader);
 
             var project = new Project(name, description, user.Id);
-            user.Projects.Add(project);
+
+            Store.Projects.Add(project);
             return Ok(project);
         }
 
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> UpdateProject(Guid id, string name,  string description)
+        public async Task<IActionResult> UpdateProject(Guid id, string? name,  string? description)
         {
             var authHeader = Request.Headers["Authorization"];
             var user = TokenService.GetUserFromToken(authHeader);
-
             
-            var proj = user.Projects.Where(p => p.Id == id).FirstOrDefault();
+            var proj = Store.Projects.Where(p => (p.Id == id) && (p.UserId == user.Id)).FirstOrDefault();
 
             if (proj != null)
             {
@@ -61,10 +62,11 @@ namespace WebAPI_internship.Controllers
             var authHeader = Request.Headers["Authorization"];
             var user = TokenService.GetUserFromToken(authHeader);
 
-            if (user.Projects.Where(p => p.Id == id).Any())
+            var proj = Store.Projects.Where(p => (p.Id == id) && (p.UserId == user.Id)).FirstOrDefault();
+
+            if (proj != null)
             {
-                var proj = user.Projects.Where(p => p.Id == id).FirstOrDefault();
-                user.Projects.Remove(proj);
+                Store.Projects.Remove(proj);
                 return Ok(proj);
             }
             else

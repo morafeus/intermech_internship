@@ -16,15 +16,20 @@ namespace WebAPI_internship.Controllers
             var authHeader = Request.Headers["Authorization"];
             var user = TokenService.GetUserFromToken(authHeader);
 
-            var proj = user.Projects.Where(p => p.Id == projectId).FirstOrDefault();
+            var proj = Store.Projects.Where(p => (p.Id == projectId) && (p.UserId == user.Id)).FirstOrDefault();
 
-            if (proj != null)
+            if (proj == null)
+                return BadRequest("у вас нет доступа к данному проекту");
+
+            var nodes = Store.Nodes.Where(n => n.ProjectId == projectId).ToList();
+
+            if (nodes != null)
             {
-                return Ok(proj.Nodes);
+                return Ok(nodes);
             }
             else
             {
-                return BadRequest("такого проекта нет");
+                return BadRequest("у данного проекта нет нод");
             }
         }
 
@@ -35,12 +40,15 @@ namespace WebAPI_internship.Controllers
             var authHeader = Request.Headers["Authorization"];
             var user = TokenService.GetUserFromToken(authHeader);
 
-            var node = user.Projects.SelectMany(p => p.Nodes).FirstOrDefault(n => n.Id == id);
+            var node = Store.Nodes.Where(n => n.Id == id).FirstOrDefault();
+            if (node == null)
+                return BadRequest("в проекте нет ноды с таким айди");
 
-            if (node != null)
-                return Ok(node.JsonData);
-
-            return BadRequest("под вашим управлением нет ноды с таким айди");
+            var proj = Store.Projects.Where(p => (p.Id == node.ProjectId) && (p.UserId == user.Id)).FirstOrDefault();
+            if (proj == null)
+                return BadRequest("у вас нет доступа к проекту, которому принадлежит эта нода");
+            
+            return Ok(node.JsonData);
         }
 
         [HttpPost]
@@ -50,12 +58,12 @@ namespace WebAPI_internship.Controllers
             var authHeader = Request.Headers["Authorization"];
             var user = TokenService.GetUserFromToken(authHeader);
 
-            var proj = user.Projects.Where(p => p.Id == projectId).FirstOrDefault();
+            var proj = Store.Projects.Where(p => (p.Id == projectId) && (p.UserId == user.Id)).FirstOrDefault();
 
             if (proj != null)
             {
                 var node = new NodeGraph(name, proj.Id, jsonData);
-                proj.Nodes.Add(node);
+                Store.Nodes.Add(node);
                 return Ok(node);
             }
             else
@@ -66,20 +74,23 @@ namespace WebAPI_internship.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> UpdateNode(Guid id, string name, string jsonData)
+        public async Task<IActionResult> UpdateNode(Guid id, string? name, string? jsonData)
         {
             var authHeader = Request.Headers["Authorization"];
             var user = TokenService.GetUserFromToken(authHeader);
 
-            var node = user.Projects.SelectMany(p => p.Nodes).FirstOrDefault(n => n.Id == id);
+            var node = Store.Nodes.Where(n => n.Id == id).FirstOrDefault();
+            if (node == null)
+                return BadRequest("в проекте нет ноды с таким айди");
+
+            var proj = Store.Projects.Where(p => (p.Id == node.ProjectId) && (p.UserId == user.Id)).FirstOrDefault();
+            if (proj == null)
+                return BadRequest("у вас нет доступа к проекту, которому принадлежит эта нода");
 
             node.Name = name ?? node.Name;
             node.JsonData = jsonData ?? node.JsonData;
 
-            if (node != null)
-                return Ok(node);
-            
-            return BadRequest("под вашим управлением нет ноды с таким айди");
+            return Ok(node);
         }
 
         [HttpDelete("{id}")]
@@ -89,16 +100,17 @@ namespace WebAPI_internship.Controllers
             var authHeader = Request.Headers["Authorization"];
             var user = TokenService.GetUserFromToken(authHeader);
 
-            var node = user.Projects.SelectMany(p => p.Nodes).FirstOrDefault(n => n.Id == id);
+            var node = Store.Nodes.Where(n => n.Id == id).FirstOrDefault();
+            if (node == null)
+                return BadRequest("в проекте нет ноды с таким айди");
 
-            if (node != null)
-            {
-                var proj = user.Projects.Where(p => p.Id == node.ProjectId).FirstOrDefault();
-                proj.Nodes.Remove(node);
-                return Ok(node);
-            }
+            var proj = Store.Projects.Where(p => (p.Id == node.ProjectId) && (p.UserId == user.Id)).FirstOrDefault();
+            if (proj == null)
+                return BadRequest("у вас нет доступа к проекту, которому принадлежит эта нода");
 
-            return BadRequest("под вашим управлением нет ноды с таким айди");
+            Store.Nodes.Remove(node);
+
+            return Ok(node);
         }
     }
 }
