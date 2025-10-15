@@ -7,12 +7,12 @@
 
         public Dictionary<string, object> Params { get; set; } = new();
 
-        public Dictionary<Guid, Input> Inputs { get; set; } = new();
+        public Dictionary<string, Input> Inputs { get; set; } = new();
     }
 
     public class Input
     {
-        public string OutputName { get; set; }
+        public Guid NodeId { get; set; }
         public string InputName { get; set; }
     }
 

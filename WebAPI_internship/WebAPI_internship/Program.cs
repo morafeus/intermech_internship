@@ -40,7 +40,7 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
-builder.Services.AddScoped<INodeExecutorService, NodeExecutorService>();
+builder.Services.AddSingleton<INodeExecutorService, NodeExecutorService>();
 
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 builder.Services.AddAuthentication(x =>

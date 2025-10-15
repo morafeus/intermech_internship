@@ -10,12 +10,6 @@ namespace WebAPI_internship.Services
     public class NodeExecutorService : INodeExecutorService
     {
         private Dictionary<Guid, Dictionary<string, object>> _result = new();
-        private readonly Dictionary<string, Type> _nodeTypeMap = new()
-        {
-            { "AddNumberNode", typeof(AddNumberNode) },
-            { "StringConcatNode", typeof(StringConcatNode) },
-            { "ConsoleLogNode", typeof(ConsoleLogNode) }
-        };
 
         public async Task<object> ExecuteAsync(string jsonData)
         {
@@ -29,7 +23,7 @@ namespace WebAPI_internship.Services
 
             foreach(var node in graph.nodes)
             {
-                if (!_nodeTypeMap.TryGetValue(node.Name, out Type nodeType))
+                if (!Store.NodeTypeMap.TryGetValue(node.Name, out Type nodeType))
                 {
                     throw new Exception("ноды с таким именем не существует");
                 }
@@ -52,10 +46,10 @@ namespace WebAPI_internship.Services
 
             foreach(var param in node.Inputs)
             {
-                var nodeId = param.Key;
+                var nodeId = param.Value.NodeId;
                 var outputName = param.Value.OutputName;
 
-                var paramName = param.Value.InputName;
+                var paramName = param.Key;
 
                 if(_result.TryGetValue(nodeId, out var value))
                 {
