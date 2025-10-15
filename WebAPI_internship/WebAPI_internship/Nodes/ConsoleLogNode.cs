@@ -8,7 +8,7 @@ namespace WebAPI_internship.Nodes
     {
         public override Dictionary<string, object> Execute(Dictionary<string, object> input)
         {
-            if (!input.TryGetValue("LogInput", out object value))
+            if (!input.TryGetValue("Value", out object value))
             {
                 Log.Warning("отсутствуют требуемые параметры");
                 throw new Exception("отсутствуют требуемые параметры");
@@ -16,7 +16,7 @@ namespace WebAPI_internship.Nodes
 
             Log.Information($"объект, который был передан: {value}");
 
-            return new Dictionary<string, object>() { { "LogOutput", value} };
+            return new Dictionary<string, object>() { { "Result", value} };
         }
     }
 }

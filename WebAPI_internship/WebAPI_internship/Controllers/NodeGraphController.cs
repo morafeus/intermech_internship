@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
 using WebAPI_internship.Models;
+using WebAPI_internship.Services;
 
 namespace WebAPI_internship.Controllers
 {

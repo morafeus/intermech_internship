@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace WebAPI_internship
+namespace WebAPI_internship.Services
 {
     public static class HashService
     {

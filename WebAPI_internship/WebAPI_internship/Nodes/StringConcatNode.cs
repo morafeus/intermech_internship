@@ -1,4 +1,5 @@
-﻿using WebAPI_internship.Models.Nodes;
+﻿using System.Text.Json;
+using WebAPI_internship.Models.Nodes;
 
 namespace WebAPI_internship.Nodes
 {
@@ -6,17 +7,36 @@ namespace WebAPI_internship.Nodes
     {
         public override Dictionary<string, object> Execute(Dictionary<string, object> input)
         {
-            if (!(input.TryGetValue("x", out object xValue) && input.TryGetValue("y", out object yValue)))
+            string first = null;
+            string second = null;
+
+            if (!(input.TryGetValue("String1", out object xValue) && input.TryGetValue("String2", out object yValue)))
             {
                 throw new Exception("отсутствуют требуемые параметры");
             }
 
-            var x = input["x"] as string;
-            var y = input["y"] as string;
-
-            if (x != null && y != null)
+            if(xValue is string)
             {
-                var result = x.Concat(y);
+                first = (string)xValue;
+            }
+            else if(xValue is JsonElement xJson)
+            {
+                first = xJson.GetString();
+            }
+
+            if (yValue is string)
+            {
+                second = (string)yValue;
+            }
+            else if (yValue is JsonElement yJson)
+            {
+                second = yJson.GetString();
+            }
+
+
+            if (first != null && second != null)
+            {
+                var result = first + second;
                 return new Dictionary<string, object> { { "Result", result } };
             }
             else

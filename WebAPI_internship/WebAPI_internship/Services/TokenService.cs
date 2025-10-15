@@ -4,7 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using WebAPI_internship.Models;
 
-namespace WebAPI_internship
+namespace WebAPI_internship.Services
 {
     public class TokenService 
     {
