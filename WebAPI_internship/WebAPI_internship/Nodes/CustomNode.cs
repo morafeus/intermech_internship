@@ -1,12 +1,15 @@
-﻿using WebAPI_internship.Models.Nodes;
+﻿using System.Text.Json;
+using WebAPI_internship.Models.NodeModels;
+using WebAPI_internship.Models.Nodes;
 using WebAPI_internship.Services.Interfaces;
 
 namespace WebAPI_internship.Nodes
 {
     public class CustomNode : NodeOperation
     {
-        private readonly string _nodeGraph;
+
         private readonly INodeExecutorService _service;
+        private string _nodeGraph;
 
         public CustomNode(string nodeGraph, INodeExecutorService service)
         {
@@ -16,7 +19,7 @@ namespace WebAPI_internship.Nodes
 
         public override Dictionary<string, object> Execute(Dictionary<string, object> input)
         {
-            throw new NotImplementedException();
+            var graph = JsonSerializer.Deserialize<JsonData>(_nodeGraph);
         }
     }
 }

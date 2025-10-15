@@ -13,7 +13,7 @@
     public class Input
     {
         public Guid NodeId { get; set; }
-        public string InputName { get; set; }
+        public string OutputName { get; set; }
     }
 
     public class JsonData

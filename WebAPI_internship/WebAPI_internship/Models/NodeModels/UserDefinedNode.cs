@@ -11,5 +11,14 @@
         public Dictionary<string, string> Outputs { get; set; }
 
         public string NodeJsonData { get; set; }
+
+        public UserDefinedNode(Guid userId, string name, Dictionary<string, string> inputs, Dictionary<string, string> outputs, string nodeJsonData)
+        {
+            UserId = userId;
+            Name = name;
+            Inputs = inputs;
+            Outputs = outputs;
+            NodeJsonData = nodeJsonData;
+        }
     }
 }

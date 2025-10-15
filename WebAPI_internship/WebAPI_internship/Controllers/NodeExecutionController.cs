@@ -34,5 +34,13 @@ namespace WebAPI_internship.Controllers
             var result = _executor.ExecuteAsync(node.JsonData);
             return Ok(result.Result);
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route("/addUserNode")]
+        public async Task<IActionResult> AddUserNode()
+        {
+            return Ok();
+        }
     }
 }
