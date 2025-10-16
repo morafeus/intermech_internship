@@ -1,14 +1,23 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
-using WebAPI_internship.Models;
 using WebAPI_internship.Services;
+using WebAPI_internship.Services.Interfaces;
 
 namespace WebAPI_internship.Controllers
 {
     [ApiController]
     public class UsersController : Controller
     {
+
+        private readonly ITokenService _tokenService;
+        private readonly IUserService _userService;
+
+        public UsersController(ITokenService tokenService, IUserService userService)
+        {
+            _tokenService = tokenService;
+            _userService = userService;
+        }
+
         [HttpGet]
         [Authorize]
         [Route("getAll")]
@@ -23,13 +32,8 @@ namespace WebAPI_internship.Controllers
         public async Task<IActionResult> GetMe()
         {
             var authHeader = Request.Headers["Authorization"];
-            var user = TokenService.GetUserFromToken(authHeader);
-            user.Projects = Store.Projects.Where(p => p.UserId == user.Id).ToList();
-
-            foreach(var project in user.Projects)
-            {
-                project.Nodes = Store.Nodes.Where(n => n.ProjectId == project.Id).ToList();
-            }
+            var user = _tokenService.GetUserFromToken(authHeader);
+            user = await _userService.GetUserProfile(user);
             
             return Ok(user);
         }

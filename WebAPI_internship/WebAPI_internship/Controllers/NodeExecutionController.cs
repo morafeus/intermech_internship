@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI_internship.Services;
 using WebAPI_internship.Services.Interfaces;
 
 namespace WebAPI_internship.Controllers
@@ -10,10 +9,12 @@ namespace WebAPI_internship.Controllers
     public class NodeExecutionController : Controller
     {
         private readonly INodeExecutorService _executor;
+        private readonly ITokenService _tokenService;
 
-        public NodeExecutionController(INodeExecutorService executor)
+        public NodeExecutionController(INodeExecutorService executor, ITokenService tokenService)
         {
             _executor = executor;
+            _tokenService = tokenService;
         }
 
         [HttpPost("{id}/execute")]
@@ -21,7 +22,7 @@ namespace WebAPI_internship.Controllers
         public async Task<IActionResult> Execute(Guid id)
         {
             var authHeader = Request.Headers["Authorization"];
-            var user = TokenService.GetUserFromToken(authHeader);
+            var user = _tokenService.GetUserFromToken(authHeader);
 
             var node = Store.Nodes.Where(n => n.Id == id).FirstOrDefault();
             if (node == null)
@@ -35,12 +36,5 @@ namespace WebAPI_internship.Controllers
             return Ok(result.Result);
         }
 
-        [HttpPost]
-        [Authorize]
-        [Route("/addUserNode")]
-        public async Task<IActionResult> AddUserNode()
-        {
-            return Ok();
-        }
     }
 }

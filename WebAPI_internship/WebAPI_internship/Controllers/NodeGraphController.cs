@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 using WebAPI_internship.Models;
+using WebAPI_internship.Models.NodeModels;
 using WebAPI_internship.Services;
+using WebAPI_internship.Services.Interfaces;
 
 namespace WebAPI_internship.Controllers
 {
@@ -9,27 +12,31 @@ namespace WebAPI_internship.Controllers
     [Route("api/nodegraph")]
     public class NodeGraphController : Controller
     {
+
+        private readonly ITokenService _tokenService;
+        private readonly INodeGraphService _nodeGraphService;
+
+        public NodeGraphController(ITokenService tokenService, INodeGraphService nodeGraphService)
+        {
+            _tokenService = tokenService;
+            _nodeGraphService = nodeGraphService;
+        }
+
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetNodes(Guid projectId)
         {
             var authHeader = Request.Headers["Authorization"];
-            var user = TokenService.GetUserFromToken(authHeader);
+            var user = _tokenService.GetUserFromToken(authHeader);
 
-            var proj = Store.Projects.Where(p => (p.Id == projectId) && (p.UserId == user.Id)).FirstOrDefault();
-
-            if (proj == null)
-                return BadRequest("у вас нет доступа к данному проекту");
-
-            var nodes = Store.Nodes.Where(n => n.ProjectId == projectId).ToList();
-
-            if (nodes != null)
+            try
             {
+                var nodes = await _nodeGraphService.GetNodes(projectId, user.Id);
                 return Ok(nodes);
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("у данного проекта нет нод");
+                return BadRequest(ex.Message);
             }
         }
 
@@ -38,17 +45,17 @@ namespace WebAPI_internship.Controllers
         public async Task<IActionResult> GetNode(Guid id)
         {
             var authHeader = Request.Headers["Authorization"];
-            var user = TokenService.GetUserFromToken(authHeader);
+            var user = _tokenService.GetUserFromToken(authHeader);
 
-            var node = Store.Nodes.Where(n => n.Id == id).FirstOrDefault();
-            if (node == null)
-                return BadRequest("в проекте нет ноды с таким айди");
-
-            var proj = Store.Projects.Where(p => (p.Id == node.ProjectId) && (p.UserId == user.Id)).FirstOrDefault();
-            if (proj == null)
-                return BadRequest("у вас нет доступа к проекту, которому принадлежит эта нода");
-            
-            return Ok(node.JsonData);
+            try
+            {
+                var node = await _nodeGraphService.GetNodeById(id, user.Id);
+                return Ok(node.JsonData);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
@@ -56,20 +63,18 @@ namespace WebAPI_internship.Controllers
         public async Task<IActionResult> AddNode(Guid projectId, string name, string jsonData)
         {
             var authHeader = Request.Headers["Authorization"];
-            var user = TokenService.GetUserFromToken(authHeader);
+            var user = _tokenService.GetUserFromToken(authHeader);
 
-            var proj = Store.Projects.Where(p => (p.Id == projectId) && (p.UserId == user.Id)).FirstOrDefault();
+            try
+            {
+                var node = await _nodeGraphService.AddNode(projectId, name, jsonData, user.Id);
+                return Ok(node.JsonData);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
-            if (proj != null)
-            {
-                var node = new NodeGraph(name, proj.Id, jsonData);
-                Store.Nodes.Add(node);
-                return Ok(node);
-            }
-            else
-            {
-                return BadRequest("такого проекта нет");
-            }
         }
 
         [HttpPut("{id}")]
@@ -77,20 +82,17 @@ namespace WebAPI_internship.Controllers
         public async Task<IActionResult> UpdateNode(Guid id, string? name, string? jsonData)
         {
             var authHeader = Request.Headers["Authorization"];
-            var user = TokenService.GetUserFromToken(authHeader);
+            var user = _tokenService.GetUserFromToken(authHeader);
 
-            var node = Store.Nodes.Where(n => n.Id == id).FirstOrDefault();
-            if (node == null)
-                return BadRequest("в проекте нет ноды с таким айди");
-
-            var proj = Store.Projects.Where(p => (p.Id == node.ProjectId) && (p.UserId == user.Id)).FirstOrDefault();
-            if (proj == null)
-                return BadRequest("у вас нет доступа к проекту, которому принадлежит эта нода");
-
-            node.Name = name ?? node.Name;
-            node.JsonData = jsonData ?? node.JsonData;
-
-            return Ok(node);
+            try
+            {
+                var node = await _nodeGraphService.ChangeNode(id,user.Id,  name, jsonData);
+                return Ok(node.JsonData);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]
@@ -98,19 +100,17 @@ namespace WebAPI_internship.Controllers
         public async Task<IActionResult> DeleteNode(Guid id)
         {
             var authHeader = Request.Headers["Authorization"];
-            var user = TokenService.GetUserFromToken(authHeader);
+            var user = _tokenService.GetUserFromToken(authHeader);
 
-            var node = Store.Nodes.Where(n => n.Id == id).FirstOrDefault();
-            if (node == null)
-                return BadRequest("в проекте нет ноды с таким айди");
-
-            var proj = Store.Projects.Where(p => (p.Id == node.ProjectId) && (p.UserId == user.Id)).FirstOrDefault();
-            if (proj == null)
-                return BadRequest("у вас нет доступа к проекту, которому принадлежит эта нода");
-
-            Store.Nodes.Remove(node);
-
-            return Ok(node);
+            try
+            {
+                var node = await _nodeGraphService.RemoveNode(id, user.Id);
+                return Ok(node.JsonData);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

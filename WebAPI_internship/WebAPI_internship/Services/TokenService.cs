@@ -3,10 +3,11 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using WebAPI_internship.Models;
+using WebAPI_internship.Services.Interfaces;
 
 namespace WebAPI_internship.Services
 {
-    public class TokenService 
+    public class TokenService : ITokenService
     {
         private readonly string _key;
         private readonly string _issuer;
@@ -43,7 +44,7 @@ namespace WebAPI_internship.Services
         }
 
 
-        public static User GetUserFromToken(string token)
+        public User GetUserFromToken(string token)
         {
             var handler = new JwtSecurityTokenHandler();
             var authHeader = token.Replace("Bearer ", "");

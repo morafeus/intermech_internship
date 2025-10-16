@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 using WebAPI_internship.Models;
 using WebAPI_internship.Services;
+using WebAPI_internship.Services.Interfaces;
 
 namespace WebAPI_internship.Controllers
 {
@@ -9,14 +11,24 @@ namespace WebAPI_internship.Controllers
     [Route("/api/projects")]
     public class ProjectController : Controller
     {
+
+        private readonly ITokenService _tokenService;
+        private readonly IProjectService _projectService;
+
+        public ProjectController(ITokenService tokenService, IProjectService projectService)
+        {
+            _tokenService = tokenService;
+            _projectService = projectService;
+        }
+
         [HttpGet]
         [Authorize]
         public async Task<ActionResult> GetProjects()
         {
             var authHeader = Request.Headers["Authorization"];
-            var user = TokenService.GetUserFromToken(authHeader);
+            var user = _tokenService.GetUserFromToken(authHeader);
 
-            var projects = Store.Projects.Where(p => p.UserId == user.Id).ToList();
+            var projects = await _projectService.GetProjects(user.Id);
             return Ok(projects);
         }
 
@@ -25,11 +37,9 @@ namespace WebAPI_internship.Controllers
         public async Task<IActionResult> AddProject(string name, string description)
         {
             var authHeader = Request.Headers["Authorization"];
-            var user = TokenService.GetUserFromToken(authHeader);
+            var user = _tokenService.GetUserFromToken(authHeader);
 
-            var project = new Project(name, description, user.Id);
-
-            Store.Projects.Add(project);
+            var project = await _projectService.AddProject(name, description, user.Id);
             return Ok(project);
         }
 
@@ -38,19 +48,16 @@ namespace WebAPI_internship.Controllers
         public async Task<IActionResult> UpdateProject(Guid id, string? name,  string? description)
         {
             var authHeader = Request.Headers["Authorization"];
-            var user = TokenService.GetUserFromToken(authHeader);
+            var user = _tokenService.GetUserFromToken(authHeader);
             
-            var proj = Store.Projects.Where(p => (p.Id == id) && (p.UserId == user.Id)).FirstOrDefault();
-
-            if (proj != null)
+            try
             {
-                proj.Name = name ?? proj.Name;
-                proj.Description = description ?? proj.Description;
+                var proj = await _projectService.ChangeProject(id, user.Id, name, description);
                 return Ok(proj);
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("такого элемента в списке нет");
+                return BadRequest(ex.Message);
             }
             
         }
@@ -61,17 +68,17 @@ namespace WebAPI_internship.Controllers
         public async Task<IActionResult> DeleteProject(Guid id)
         {
             var authHeader = Request.Headers["Authorization"];
-            var user = TokenService.GetUserFromToken(authHeader);
+            var user = _tokenService.GetUserFromToken(authHeader);
 
-            var proj = Store.Projects.Where(p => (p.Id == id) && (p.UserId == user.Id)).FirstOrDefault();
-
-            if (proj != null)
+            try
             {
-                Store.Projects.Remove(proj);
+                var proj = await _projectService.RemoveProject(id, user.Id);
                 return Ok(proj);
             }
-            else
-                return BadRequest("проекта с таким айди не существует");
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

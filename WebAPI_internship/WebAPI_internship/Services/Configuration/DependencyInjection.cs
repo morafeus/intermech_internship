@@ -8,6 +8,11 @@ namespace WebAPI_internship.Services.Configuration
         {
             services.AddTransient<INodeExecutorService, NodeExecutorService>();
             services.AddTransient<IPluginRegisterService, PluginRegisterService>();
+            services.AddTransient<IAuthService, AuthService>();
+            services.AddSingleton<ITokenService, TokenService>();
+            services.AddTransient<INodeGraphService, NodeGraphService>();
+            services.AddTransient<IProjectService, ProjectService>();
+            services.AddTransient<IUserService, UserService>();
 
             return services;
         }

@@ -1,12 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAPI_internship.Models;
 using WebAPI_internship.Services;
+using WebAPI_internship.Services.Interfaces;
 
 namespace WebAPI_internship.Controllers
 {
     [ApiController]
     public class AuthController : Controller
     {
+        private IAuthService _authService;
+
+        public AuthController(IAuthService authService)
+        {
+            _authService = authService;
+        }
 
         [HttpPost]
         [Route("signup")]
@@ -14,17 +21,8 @@ namespace WebAPI_internship.Controllers
         {
             try
             {
-                var passwordHash = HashService.HashPassword(password);
-
-                var user = new User(name, description, passwordHash);
-                if(Store.Users.Where(u => u.Name  == name).Any()) 
-                        {
-                    throw new Exception("пользоватль с таким именем уже есть");
-                }
-
-                Store.Users.Add(user);
-
-                return Ok("user has been created");
+                var user = await _authService.CreateNewUser(name, password, description);
+                return Ok($"user: {user.Name} has been created");
             }
             catch (Exception ex)
             {
@@ -34,28 +32,12 @@ namespace WebAPI_internship.Controllers
 
         [HttpPost]
         [Route("signin")]
-        public async Task<IActionResult> SignIn(string name, string password, [FromServices] IConfiguration configuration)
+        public async Task<IActionResult> SignIn(string name, string password)
         {
             try
             {
-                if(Store.Users.Where(u => u.Name == name).Any())
-                {
-                    var user = Store.Users.Where(u => u.Name == name).FirstOrDefault();
-
-                    if(HashService.VerifyPassword(password, user.PasswordHash))
-                    {
-                        var tokenService = new TokenService(configuration);
-                        return Ok(tokenService.GenerateAccessToken(user.Id, user.Name));
-                    }
-                    else
-                    {
-                        throw new Exception("неверный пароль");
-                    }
-                }
-                else
-                {
-                    throw new Exception("пользователя с таким логином не существует");
-                }
+                var token = await _authService.LoginUser(name, password);
+                return Ok(token);
             }
             catch (Exception ex)
             {
