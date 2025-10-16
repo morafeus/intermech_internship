@@ -1,9 +1,13 @@
-﻿using DependencyLib;
+﻿
+
+using DependencyLib;
+using System;
+using System.Collections.Generic;
 using System.Text.Json;
 
-namespace WebAPI_internship.Nodes
+namespace ClientCustomNodes.Nodes
 {
-    public class AddNumberNode : NodeOperation
+    public class MultipleNumberNode : NodeOperation
     {
         public override Dictionary<string, object> Execute(Dictionary<string, object> input)
         {
@@ -15,13 +19,13 @@ namespace WebAPI_internship.Nodes
                 throw new Exception("отсутствуют требуемые параметры");
             }
 
-            if(aValue is int)
+            if (aValue is int)
             {
                 a = (int)aValue;
             }
-            else if(aValue is JsonElement aJson)
+            else if (aValue is JsonElement aJson)
             {
-                if(!aJson.TryGetInt32(out a))
+                if (!aJson.TryGetInt32(out a))
                     throw new Exception("неверный тип параметров");
             }
 
@@ -35,7 +39,7 @@ namespace WebAPI_internship.Nodes
                     throw new Exception("неверный тип параметров");
             }
 
-            return new Dictionary<string, object> { { "Result", a + b } };
+            return new Dictionary<string, object> { { "Result", a * b } };
 
         }
     }

@@ -2,6 +2,6 @@
 {
     public interface INodeExecutorService
     {
-        public Task<object> ExecuteAsync(string jsonData);
+        public Task<Dictionary<Guid, Dictionary<string, object>>> ExecuteAsync(string jsonData);
     }
 }

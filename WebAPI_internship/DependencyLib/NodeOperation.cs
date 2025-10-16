@@ -1,4 +1,7 @@
-﻿namespace WebAPI_internship.Models.Nodes
+﻿using System;
+using System.Collections.Generic;
+
+namespace DependencyLib
 {
     public abstract class NodeOperation
     {

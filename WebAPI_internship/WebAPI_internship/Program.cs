@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text;
 using WebAPI_internship.Services;
+using WebAPI_internship.Services.Configuration;
 using WebAPI_internship.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +13,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
 {
-    // 1. Определяем схему безопасности (Security Scheme)
     option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
@@ -23,7 +23,6 @@ builder.Services.AddSwaggerGen(option =>
         Scheme = "Bearer"
     });
 
-    // 2. Указываем, что ко всем операциям API нужно применить эту схему
     option.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
@@ -40,7 +39,8 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
-builder.Services.AddSingleton<INodeExecutorService, NodeExecutorService>();
+// регистрация сервисов
+builder.Services.AddServices();
 
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 builder.Services.AddAuthentication(x =>

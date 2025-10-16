@@ -1,8 +1,7 @@
 ﻿
+using DependencyLib;
 using System.Text.Json;
 using WebAPI_internship.Models.NodeModels;
-using WebAPI_internship.Models.Nodes;
-using WebAPI_internship.Nodes;
 using WebAPI_internship.Services.Interfaces;
 
 namespace WebAPI_internship.Services
@@ -11,9 +10,8 @@ namespace WebAPI_internship.Services
     {
         private Dictionary<Guid, Dictionary<string, object>> _result = new();
 
-        public async Task<object> ExecuteAsync(string jsonData)
+        public async Task<Dictionary<Guid, Dictionary<string, object>>> ExecuteAsync(string jsonData)
         {
-            object result = null;
 
             var graph = JsonSerializer.Deserialize<JsonData>(jsonData);
             if(graph == null || !graph.nodes.Any())
@@ -28,16 +26,16 @@ namespace WebAPI_internship.Services
                     throw new Exception("ноды с таким именем не существует");
                 }
 
+                var input = CreateParams(node);
+
                 var nodeInstance = (NodeOperation)Activator.CreateInstance(nodeType);
 
-                var input = CreateParams(node);
                 var output = nodeInstance.Execute(input);
 
                 _result.Add(node.Id, output);
-                result = output.FirstOrDefault().Value;
             }
 
-            return result;
+            return _result;
         }
 
         private Dictionary<string, object> CreateParams(NodeStructure node)
