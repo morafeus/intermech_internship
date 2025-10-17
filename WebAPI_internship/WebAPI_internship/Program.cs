@@ -82,6 +82,16 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Services.AddSerilog();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin();
+        policy.AllowAnyMethod();
+        policy.AllowAnyHeader();
+    });
+});
+
 
 var app = builder.Build();
 

@@ -1,8 +1,13 @@
-﻿namespace WebAPI_internship.Models
+﻿using System.Text.Json.Serialization;
+
+namespace WebAPI_internship.Models
 {
     public class NodeGraph
     {
+        [JsonPropertyName("id")]
         public Guid Id { get; set; }
+
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
         public string JsonData { get; set; }

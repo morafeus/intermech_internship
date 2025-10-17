@@ -70,7 +70,7 @@ namespace WebAPI_internship.Controllers
         ///
         ///     Post /add
         ///     {
-        ///        "projectId": ""..\..\WebAPI_internship\ClientCustomNodes\bin\Debug\ClientCustomNodes.dll""
+        ///        "projectId": "0000000-0000-0000-0000-0000000000"
         ///        "name": "my node"
         ///        "jsonData": "
         ///        {
@@ -135,7 +135,7 @@ namespace WebAPI_internship.Controllers
             try
             {
                 var node = await _nodeGraphService.AddNode(projectId, name, jsonData, user.Id);
-                return Ok(node.Id);
+                return Ok(node);
             }
             catch (Exception ex)
             {
