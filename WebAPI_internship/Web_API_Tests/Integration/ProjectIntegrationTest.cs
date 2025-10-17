@@ -128,6 +128,39 @@ namespace Web_API_Tests.Integration
         }
 
         [Test]
+        public async Task ChangeProjectBad()
+        {
+            const string testName = "Alexey";
+            const string testPassword = "Password123";
+
+            const string projName = "first project";
+            const string projDescription = "my first project description";
+            const string projDescriptionNew = "my first project description change";
+
+            var responseRegistration = await _client.PostAsync($"https://localhost:7276/signup?name={testName}&password={testPassword}", new StringContent(""));
+            var responseAuthorization = await _client.PostAsync($"https://localhost:7276/signin?name={testName}&password={testPassword}", new StringContent(""));
+
+            var token = await responseAuthorization.Content.ReadAsStringAsync();
+
+            _client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", token);
+
+            var responseProject = await _client.PostAsync($"https://localhost:7276/api/projects?name={projName}&description={projDescription}", new StringContent(""));
+            var responseStream = await responseProject.Content.ReadAsStreamAsync();
+
+            var oldProj = await JsonSerializer.DeserializeAsync<Project>(responseStream);
+
+            var responsePutProject = await _client.PutAsync($"https://localhost:7276/api/projects/{oldProj.Id}?description={projDescription}", new StringContent(""));
+            responsePutProject.EnsureSuccessStatusCode();
+            var changeResponseStream = await responsePutProject.Content.ReadAsStreamAsync();
+
+            var newProj = await JsonSerializer.DeserializeAsync<Project>(changeResponseStream);
+
+            Assert.That(oldProj.Description, Is.EqualTo(newProj.Description));
+
+        }
+
+        [Test]
         public async Task DeleteProject()
         {
             const string testName = "Alexey";

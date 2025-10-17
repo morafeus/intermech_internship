@@ -67,4 +67,15 @@ public class AuthIntegrationTest
         var response = await _client.PostAsync($"https://localhost:7276/signin?name={testName}&password={testPassword}", new StringContent(""));
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
     }
+    [Test]
+    [Order(4)]
+    public async Task SingInTestBad()
+    {
+        const string testName = "Alexey";
+        const string testPassword = "Password1222";
+
+
+        var response = await _client.PostAsync($"https://localhost:7276/signin?name={testName}&password={testPassword}", new StringContent(""));
+        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+    }
 }

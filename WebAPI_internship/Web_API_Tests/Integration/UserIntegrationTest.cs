@@ -60,5 +60,14 @@ namespace Web_API_Tests.Integration
 
             Assert.That(respnoseUsers.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
+
+        [Test]
+        public async Task GetBad()
+        {
+
+            var respnoseUsers = await _client.GetAsync($"https://localhost:7276/getMe");
+
+            Assert.That(respnoseUsers.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
+        }
     }
 }
