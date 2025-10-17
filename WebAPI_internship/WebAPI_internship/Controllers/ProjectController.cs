@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 using WebAPI_internship.Models;
 using WebAPI_internship.Services;
@@ -21,6 +22,8 @@ namespace WebAPI_internship.Controllers
             _projectService = projectService;
         }
 
+        /// <response code="200">список проектов пользователя</response>
+        /// <response code="400">ошибка, если у пользователя нет доступа к данному проекту</response>
         [HttpGet]
         [Authorize]
         public async Task<ActionResult> GetProjects()
@@ -32,9 +35,11 @@ namespace WebAPI_internship.Controllers
             return Ok(projects);
         }
 
+        /// <response code="200">созданный проект</response>
+        /// <response code="400">ошибка, сли поля были заполнены некорректно</response>
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> AddProject(string name, string description)
+        public async Task<IActionResult> AddProject([Required] string name, [Required] string description)
         {
             var authHeader = Request.Headers["Authorization"];
             var user = _tokenService.GetUserFromToken(authHeader);
@@ -43,9 +48,12 @@ namespace WebAPI_internship.Controllers
             return Ok(project);
         }
 
+        /// <param name="id">идентефикатор проекта, который принадлежит пользователю</param>
+        /// <response code="200">измененный проект с указанным идентификатором</response>
+        /// <response code="400">ошибка, если у пользователя нет доступа к данном проекту</response>
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> UpdateProject(Guid id, string? name,  string? description)
+        public async Task<IActionResult> UpdateProject([Required] Guid id, string? name,  string? description)
         {
             var authHeader = Request.Headers["Authorization"];
             var user = _tokenService.GetUserFromToken(authHeader);
@@ -62,10 +70,12 @@ namespace WebAPI_internship.Controllers
             
         }
 
-
+        /// <param name="id">идентефикатор проекта, который принадлежит пользователю</param>
+        /// <response code="200">удаленный проект с указанным идентификатором</response>
+        /// <response code="400">ошибка, если у пользователя нет доступа к данном проекту</response>
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<IActionResult> DeleteProject(Guid id)
+        public async Task<IActionResult> DeleteProject([Required] Guid id)
         {
             var authHeader = Request.Headers["Authorization"];
             var user = _tokenService.GetUserFromToken(authHeader);

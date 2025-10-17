@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Reflection;
 using System.Text;
-using WebAPI_internship.Services;
 using WebAPI_internship.Services.Configuration;
-using WebAPI_internship.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,10 +37,20 @@ builder.Services.AddSwaggerGen(option =>
             new string[] {}
         }
     });
+
+    option.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "internshipAPI",
+    });
+
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    option.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
 // регистрация сервисов
 builder.Services.AddServices();
+builder.Services.AddEndpointsApiExplorer();
 
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 builder.Services.AddAuthentication(x =>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using WebAPI_internship.Services.Interfaces;
 
 namespace WebAPI_internship.Controllers
@@ -15,10 +16,21 @@ namespace WebAPI_internship.Controllers
             _pluginRegisterService = pluginService;
         }
 
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /load
+        ///     {
+        ///        "path": ""..\..\WebAPI_internship\ClientCustomNodes\bin\Debug\ClientCustomNodes.dll""
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">сборка пользовательских нод успешно добавлена</response>
+        /// <response code="400">ошибка, если сборки с пользовательскими нодами по данному пути не обнаружено</response>
         [HttpGet]
         [Route("/load")]
         [Authorize]
-        public async Task<IActionResult> LoadUserDLL(string path)
+        public async Task<IActionResult> LoadUserDLL([Required] string path)
         {
             try
             {

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebAPI_internship.Models;
-using WebAPI_internship.Services;
+using System.ComponentModel.DataAnnotations;
 using WebAPI_internship.Services.Interfaces;
 
 namespace WebAPI_internship.Controllers
@@ -15,9 +14,11 @@ namespace WebAPI_internship.Controllers
             _authService = authService;
         }
 
+        /// <response code="200">create new user</response>
+        /// <response code="400">ошибка, если поля не были заполнены или заполнены некорректно</response>
         [HttpPost]
         [Route("signup")]
-        public async Task<IActionResult> SignUp( string name, string password, string description = "")
+        public async Task<IActionResult> SignUp([Required] string name, [Required] string password, string description = "")
         {
             try
             {
@@ -30,9 +31,11 @@ namespace WebAPI_internship.Controllers
             }
         }
 
+        /// <response code="200">успешная аутентификация</response>
+        /// <response code="400">ошибка, если поля не были заполнены или заполнены некорректно</response>
         [HttpPost]
         [Route("signin")]
-        public async Task<IActionResult> SignIn(string name, string password)
+        public async Task<IActionResult> SignIn([Required] string name, [Required] string password)
         {
             try
             {
